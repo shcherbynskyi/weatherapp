@@ -30,7 +30,6 @@ android {
     }
     buildTypes.each {
         it.buildConfigField ("String", "OPEN_WEATHER_API_KEY", "\"05728203376d4b4cb9652a5b2785854e\"")
-        it.buildConfigField ("String", "GOOGLE_PLACES_API_KEY", "\"AIzaSyComTA_rewza3uBDc-BFUt9J2h5vEOP1iA\"")
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
