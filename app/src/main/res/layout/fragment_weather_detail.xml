@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.weather.WeatherDetailFragment">
+
+    <data>
+
+        <import type="com.example.weather_app.core.extensions.DoubleExtKt" />
+
+        <variable
+            name="weather"
+            type="com.example.weather_app.data.models.weather.WeatherApiResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_city_name"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:layout_constraintBottom_toTopOf="@id/view_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_clouds" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:text="@{weather.name}"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Kamianske" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@{String.valueOf(DoubleExtKt.round(weather.main.temp))}"
+            android:textColor="#2d2d2d"
+            android:textSize="80sp"
+            app:fontFamily="@font/roboto_bold"
+            app:layout_constraintBottom_toTopOf="@id/view_divider"
+            app:layout_constraintStart_toStartOf="@id/view_divider"
+            tools:text="23" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="°C"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_temperature"
+            app:layout_constraintStart_toEndOf="@id/text_view_temperature"
+            app:layout_constraintTop_toTopOf="@id/text_view_temperature" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_max_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableEnd="@drawable/ic_arrow_up"
+            android:drawableTint="#FF0000"
+            android:text="@{String.format(@string/forecast_temperature, DoubleExtKt.round(weather.main.temp_max))}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_temperature"
+            tools:text="25°C" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_min_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:drawableTint="#0000FF"
+            android:text="@{String.format(@string/forecast_temperature, DoubleExtKt.round(weather.main.temp_min))}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_temperature"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="8°C" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toTopOf="@id/text_view_weather_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_weather_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
+            android:text="@{weather.weather.get(0).description}"
+            android:textColor="#2d2d2d"
+            android:textSize="24sp"
+            app:fontFamily="@font/roboto_medium"
+            app:layout_constraintBottom_toTopOf="@id/recycler_view_daily_forecast"
+            app:layout_constraintStart_toStartOf="@id/view_divider"
+            tools:text="sunny" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_daily_forecast"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_daily_weather" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

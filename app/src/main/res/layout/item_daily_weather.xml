@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.weather_app.core.extensions.LongExtKt" />
+
+        <import type="com.example.weather_app.core.extensions.DoubleExtKt" />
+
+        <variable
+            name="forecast"
+            type="com.example.weather_app.data.models.weather.DailyForecast" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/forecast_temperature, DoubleExtKt.round(forecast.main.temp))}"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@id/image_view_icon"
+            app:layout_constraintEnd_toEndOf="@id/image_view_icon"
+            app:layout_constraintStart_toStartOf="@id/image_view_icon"
+            tools:text="17°C" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_snow" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{LongExtKt.getDate(forecast.dt)}"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/image_view_icon"
+            app:layout_constraintStart_toStartOf="@id/image_view_icon"
+            app:layout_constraintTop_toBottomOf="@id/image_view_icon"
+            tools:text="16/03" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{LongExtKt.getTime(forecast.dt)}"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/image_view_icon"
+            app:layout_constraintStart_toStartOf="@id/image_view_icon"
+            app:layout_constraintTop_toBottomOf="@id/text_view_date"
+            tools:text="11 am" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
